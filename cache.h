@@ -39,12 +39,43 @@ public:
     }
 
     void put(const Key &key, const Value &value) {
+        if (cacheMap.find(key) != cacheMap.end()) {
+            // Key already exists in the cache
+            auto it = cacheMap[key].second;
+            cacheList.erase(it);
+        } else {
+            // Key does not exist in the cache
+            if (cacheMap.size() >= capacity) {
+                // Cache is full, evict a key
+                int keyToEvict = strategy->evictKey(cacheList);
+                cacheMap.erase(keyToEvict);
+            }
+        }
+
+        // Add the key to the cache
+        cacheList.push_back(key);
+        auto it = cacheList.end();
+        it--;
+        cacheMap[key] = {value, it};
     }
 
     Value get(const Key &key) {
+        if (cacheMap.find(key) == cacheMap.end()) {
+            throw invalid_argument("Key does not exist in the cache");
+        }
+
+        // Key exists in the cache
+        Value value = cacheMap[key].first;
+        strategy->keyAccessed(cacheList, cacheMap, key);
+        return value;
+    
     }
 
     void printCache() {
+        for (auto it = cacheList.begin(); it != cacheList.end(); it++) {
+            cout << *it << " ";
+        }
+        cout << endl;
     }
 
 private:
