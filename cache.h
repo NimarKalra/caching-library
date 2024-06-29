@@ -5,6 +5,7 @@
 #include "strategy.h"
 #include "LIFO.h"
 #include "FIFO.h"
+#include "LRU.h"
 
 using namespace std;
 
@@ -25,6 +26,9 @@ public:
                 break;
             case EvictionPolicy::LIFO:
                 strategy = make_unique<LIFOPolicy>();
+                break;
+            case EvictionPolicy::LRU:
+                strategy = make_unique<LRUPolicy>();
                 break;
         }
     }
