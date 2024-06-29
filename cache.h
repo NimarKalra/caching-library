@@ -2,18 +2,12 @@
 #include <unordered_map>
 #include <list>
 #include <memory>
+#include "strategy.h"
+#include "LIFO.h"
+#include "FIFO.h"
+
 using namespace std;
 
-class EvictionStrategy {
-public:
-    virtual ~EvictionStrategy() = default;
-    virtual void keyAccessed(list<int>& cacheList, unordered_map<int, list<int>::iterator>& cacheMap, int key) = 0;
-    virtual int evictKey(list<int>& cacheList) = 0;
-};
-
-class FIFOPolicy : public EvictionStrategy {
-    // FIFO eviction logic
-};
 
 enum class EvictionPolicy {
     FIFO,
@@ -28,9 +22,6 @@ public:
         switch (policy) {
             case EvictionPolicy::FIFO:
                 strategy = make_unique<FIFOPolicy>();
-                break;
-            case EvictionPolicy::LRU:
-                strategy = make_unique<LRUPolicy>();
                 break;
             case EvictionPolicy::LIFO:
                 strategy = make_unique<LIFOPolicy>();
