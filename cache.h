@@ -6,6 +6,7 @@
 #include "LIFO.h"
 #include "FIFO.h"
 #include "LRU.h"
+#include "CUSTOM.h"
 
 using namespace std;
 
