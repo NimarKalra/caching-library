@@ -1,6 +1,6 @@
 # In-Memory Caching Library
 
-This is a C++ library that provides in-memory caching functionality with support for FIFO, LIFO, and LRU eviction policies. Also supports addition of custom eviction policies. Has inbuilt thread safety to prevent corruption of data.
+This is a C++ library that provides in-memory caching functionality with support for FIFO, LIFO, and LRU eviction policies. Also supports addition of custom eviction policies. Has inbuilt thread safety to prevent prevent race conditions.
 
 ## Features
 
