@@ -58,6 +58,7 @@ public:
      * @param value The value of the key-value pair.
      */
     void put(const int &key, const int &value) {
+        lock_guard<mutex> lock(cacheMutex); // Lock the mutex
         if (cacheMap.find(key) != cacheMap.end()) {
             // Key already exists in the cache
             auto it = cacheMap[key].second;
@@ -90,6 +91,7 @@ public:
      * @throws invalid_argument if the key does not exist in the cache.
      */
     int get(const int &key) {
+        lock_guard<mutex> lock(cacheMutex); // Lock the mutex
         if (cacheMap.find(key) == cacheMap.end()) {
             throw invalid_argument("Key does not exist in the cache");
         }
@@ -116,4 +118,5 @@ private:
     unique_ptr<EvictionStrategy> strategy; // The eviction strategy to be used
     unordered_map<int, pair<int, typename list<int>::iterator>> cacheMap; // Map to store key-value pairs
     list<int> cacheList; // List to maintain the order of key access
+    mutex cacheMutex; // Mutex to protect the cache 
 };
