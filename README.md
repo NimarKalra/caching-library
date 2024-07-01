@@ -1,51 +1,44 @@
 # In-Memory Caching Library
 
-This is a C++ library that provides in-memory caching functionality with support for FIFO, LIFO, and LRU eviction policies.
+This is a C++ library that provides in-memory caching functionality with support for FIFO, LIFO, and LRU eviction policies. Also supports addition of custom eviction policies. Has inbuilt thread safety to prevent corruption of data.
 
 ## Features
 
 - FIFO (First-In, First-Out) eviction policy
 - LIFO (Last-In, First-Out) eviction policy
 - LRU (Least Recently Used) eviction policy
+- Custom eviction policy
+- Thread safety
 
 ## Installation
 
 To use this library in your C++ project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/caching-library.git`
-2. Include the necessary header files in your project.
-3. Link against the library during compilation.
+1. Clone the repository: `git clone https://github.com/NimarKalra/caching-library.git`
+2. Include the cache header file in your main.cpp file by mentioning `#include "cache.h"` at the top of the `main.cpp` file.
 
 ## Usage
 
 Here's an example of how to use the library:
 
 ```cpp
-#include <iostream>
-#include "caching_library/cache.h"
+#include <bits/stdc++.h>
+#include "cache.h"
 
 int main() {
     // Create a cache with a maximum capacity of 100 items and LRU eviction policy
-    Cache<int, std::string> cache(100, EvictionPolicy::LRU);
+     Cache cache(4, EvictionPolicy::LRU);
 
     // Insert items into the cache
-    cache.insert(1, "Value 1");
-    cache.insert(2, "Value 2");
-    cache.insert(3, "Value 3");
+    cache.put(1, 100);
+    cache.put(2, 200);
+    cache.put(3, 300);
 
     // Retrieve items from the cache
-    std::cout << cache.get(1) << std::endl; // Output: "Value 1"
-    std::cout << cache.get(2) << std::endl; // Output: "Value 2"
-    std::cout << cache.get(3) << std::endl; // Output: "Value 3"
+    cout << cache.get(1) <<endl; // Output: 100
+    cout << cache.get(2) <<endl; // Output: 200
+    cout << cache.get(3) <<endl; // Output: 300
 
     return 0;
 }
 ```
-
-## Contributing
-
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
-
-## License
-
-This library is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

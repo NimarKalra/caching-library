@@ -6,7 +6,7 @@
 using namespace std;
 
 int main(){
-    Cache<int, int> cache(4, EvictionPolicy::LRU);
+    Cache cache(4, EvictionPolicy::LRU);
     cache.put(1, 1);
     cache.put(2, 2);
     cache.put(3, 3);
